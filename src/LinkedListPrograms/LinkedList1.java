@@ -1,6 +1,8 @@
 package LinkedListPrograms;
 
 
+import java.io.RandomAccessFile;
+
 public class LinkedList1 {
     private Node head; // Creating vars of class Node
     private Node tail;
@@ -111,4 +113,69 @@ public class LinkedList1 {
         }
         return temp;
     }
+
+    public boolean set(int index, int value){
+//        if (index>length || index < 0) return false;
+//        Node temp = head;
+//        int count = 0;
+//        while (count!=index){
+//            temp = temp.next;
+//            count++;
+//        }
+        Node temp = getIndex(index);
+        if (temp!=null){
+            temp.value = value;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean insert(int index, int val){
+        if (index==0){
+            prepend(val);
+            return true;
+        } else if (index==length) {
+            append(val);
+            return true;
+        }
+        Node newNode = new Node(val);
+        Node temp = getIndex(index-1);
+        Node tempNext = temp.next;
+        if (temp != null) {
+            temp.next = newNode;
+            newNode.next = tempNext;
+            length++;
+            return true;
+        }
+        return false;
+    }
+
+    public Node remove(int index){
+        if (index == 0) return removeFirst();
+        if (index == length-1) return removeLast();
+        Node prev = getIndex(index-1);
+        Node temp = prev.next;
+        prev.next = temp.next;
+        temp.next = null;
+        length--;
+        return temp;
+    }
+
+    public void reverse(){
+        Node temp = head;
+        head = tail;
+        tail = head;
+        Node prev = null;
+        Node after;
+        int count = 0;
+        while (count<length){
+            after = temp.next;
+            temp.next = prev;
+            prev = temp;
+            temp = after;
+            count++;
+        }
+
+    }
+
 }
