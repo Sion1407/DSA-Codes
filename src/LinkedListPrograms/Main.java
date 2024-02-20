@@ -30,6 +30,16 @@ public class Main {
         DoublyLinkedList dl = new DoublyLinkedList(10);
 
         dl.appendAtTheEnd(9);
+        dl.appendAtTheEnd(8);
+        dl.printList();
+        System.out.println("Removing the last element in DLL");
+        dl.removeLast();
+        dl.printList();
+        System.out.println("Prepending a new element in DLL");
+        dl.prepend(11);
+        dl.printList();
+        System.out.println("removing first  element in DLL");
+        dl.removeFirst();
         dl.printList();
     }
 }
