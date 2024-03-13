@@ -1,5 +1,7 @@
 package Exercises.hashTable;
 
+import java.util.ArrayList;
+
 public class HashTable {
     private int size = 7;
     private Node[] dataMap;
@@ -66,5 +68,16 @@ public class HashTable {
             }
             return 0;
         }
+    }
+
+    public ArrayList<String> getKeys(){
+        ArrayList<String> allKeys = new ArrayList<>();
+        for (int i = 0; i < dataMap.length; i++) {
+            Node temp = dataMap[i];
+            while (temp!=null){
+                allKeys.add(temp.key);
+                temp = temp.next;
+            }
+        } return allKeys;
     }
 }

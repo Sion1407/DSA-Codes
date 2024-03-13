@@ -10,5 +10,7 @@ public class Main {
 
         System.out.println("searching in hashtable for value of nails: "+ hashTable.get("adsra"));
 
+        System.out.println("Printing all the keys in the datamap: "+ hashTable.getKeys());
+
     }
 }
