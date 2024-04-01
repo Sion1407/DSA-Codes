@@ -34,4 +34,38 @@ public class Heap {
     public void printHeap(){
         System.out.println(heap);
     }
+
+    public Integer remove(){
+        if (heap.size()==0) return null;
+
+        if (heap.size()==1) return heap.remove(0);
+
+        int maxValue = heap.get(0);
+
+        heap.set(0,heap.remove(heap.size()-1));
+
+        sinkDown(0);
+        return maxValue;
+    }
+
+    private void sinkDown(int indx){
+        int maxIdx = indx;
+        while (true){
+            int leftIdx = leftChild(maxIdx);
+            int rightIdx = rightChild(maxIdx);
+            if (leftIdx < heap.size() && heap.get(leftIdx) > heap.get(maxIdx)){
+                maxIdx = leftIdx;
+            }
+            if (rightIdx < heap.size() && heap.get(rightIdx) > heap.get(maxIdx)){
+                maxIdx = rightIdx;
+            }
+            if (maxIdx != indx){
+                swap(indx,maxIdx);
+                indx = maxIdx;
+            }
+            else {
+                return;
+            }
+        }
+    }
 }
