@@ -50,4 +50,35 @@ public class BinarySearchTree {
         return false;
     }
 
+//    Using recursion contains method
+    public boolean rContains(int val){
+        return rContains(root,val);
+    }
+    private boolean rContains(Node currNode,int val){
+        if (currNode == null) return false;
+        if (currNode.value == val) return true;
+
+        if (currNode.value > val)
+            return rContains(currNode.left,val);
+        else
+            return rContains(currNode.right,val);
+    }
+
+    public void rInsert(int val){
+        if (root == null) new Node(val);
+        rInsert(root,val);
+    }
+
+    private Node rInsert(Node currNode, int val){
+        if (currNode == null) return new Node(val);
+
+        if (val < currNode.value){
+            currNode.left = rInsert(currNode.left,val);
+        } else if (val > currNode.value) {
+            currNode.right = rInsert(currNode.right,val);
+        }
+        return currNode;
+    }
+
+
 }
