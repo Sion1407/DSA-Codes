@@ -16,5 +16,13 @@ public class Main {
         System.out.println("root -> right " +bst.root.right.value);
 
         System.out.println(bst.contains(27));
+
+
+        System.out.println("Using recursive to check bst contains value 27");
+        System.out.println(bst.rContains(27));
+
+        System.out.println("Using recurssion to insert a new Node in BST");
+        bst.rInsert(17);
+        System.out.println(bst.contains(17));
     }
 }
