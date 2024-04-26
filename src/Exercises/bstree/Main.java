@@ -24,5 +24,15 @@ public class Main {
         System.out.println("Using recurssion to insert a new Node in BST");
         bst.rInsert(17);
         System.out.println(bst.contains(17));
+
+        bst.sortedArrayToBST(new int[]{1,2,3,4,5},0,4);
+
+
+//        TREE TRAVERSAL
+        System.out.println("Breadth first search traversal: ");
+        System.out.println(bst.breadthFirstSearch());
+
+        System.out.println("Depth first search traversal: preorder:");
+        System.out.println(bst.preOrder());
     }
 }

@@ -1,5 +1,9 @@
 package Exercises.bstree;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class BinarySearchTree {
     Node root;
     class Node{
@@ -70,6 +74,7 @@ public class BinarySearchTree {
     }
 
     private Node rInsert(Node currNode, int val){
+//        Base case scenario
         if (currNode == null) return new Node(val);
 
         if (val < currNode.value){
@@ -78,6 +83,79 @@ public class BinarySearchTree {
             currNode.right = rInsert(currNode.right,val);
         }
         return currNode;
+    }
+
+    public int minValue(Node currNode){
+        while (currNode.left!=null)
+            currNode = currNode.left;
+        return currNode.value;
+    }
+    private Node rDelete(Node currNode, int val){
+        if (currNode==null) return null;
+
+        if (val< currNode.value){
+            currNode.left = rDelete(currNode.left,val);
+        } else if (val > currNode.value) {
+            currNode.right = rDelete(currNode.right,val);
+        }
+        else {
+            if (currNode.right==null && currNode.left==null)
+                currNode = null;
+            else if (currNode.left==null) {
+                currNode = currNode.right;
+            } else if (currNode.right==null) {
+                currNode = currNode.left;
+            }
+            else {
+                int minSubtreeVal = minValue(currNode.right);
+                currNode.value = minSubtreeVal;
+                currNode.right = rDelete(currNode.right,val);
+            }
+        }
+        return currNode;
+    }
+
+    public Node sortedArrayToBST(int[] nums, int left, int right){
+        if (left>right) return null;
+
+        int mid = (left+right)/2;
+        Node newNode = new Node(nums[mid]);
+
+        newNode.left = sortedArrayToBST(nums, left, mid-1);
+        newNode.right = sortedArrayToBST(nums, mid+1, right);
+
+        return newNode;
+    }
+    public ArrayList<Integer> breadthFirstSearch(){
+        Node currNode = root;
+        Queue<Node> queue = new LinkedList<>();
+        ArrayList<Integer> result = new ArrayList<>();
+        queue.add(currNode);
+        while (queue.size()>0){
+            currNode = queue.remove();
+            result.add(currNode.value);
+            if (currNode.left!=null)
+                queue.add(currNode.left);
+            if (currNode.right!=null)
+                queue.add(currNode.right);
+        }
+        return result;
+    }
+
+    public ArrayList<Integer> preOrder(){
+        ArrayList<Integer> res = new ArrayList<>();
+        class Traverse{
+            Traverse(Node currNode){
+                res.add(currNode.value);
+                if (currNode.left!=null)
+                    new Traverse(currNode.left);
+                if (currNode.right!=null)
+                    new Traverse(currNode.right);
+
+            }
+        }
+        new Traverse(root);
+        return res;
     }
 
 
