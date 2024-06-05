@@ -1,8 +1,6 @@
 package Exercises.bstree;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class BinarySearchTree {
     Node root;
@@ -156,6 +154,64 @@ public class BinarySearchTree {
         }
         new Traverse(root);
         return res;
+    }
+
+    public ArrayList<Integer> postOrder(){
+        ArrayList<Integer> result = new ArrayList<>();
+        class Traverse{
+            Traverse(Node currNode){
+                if (currNode.left!=null)
+                    new Traverse(currNode.left);
+                if (currNode.right!=null)
+                    new Traverse(currNode.right);
+                result.add(currNode.value);
+            }
+        }
+        new Traverse(root);
+        return result;
+    }
+
+    public ArrayList<Integer> inOrder(){
+        ArrayList<Integer> result = new ArrayList<>();
+
+        class Traverse{
+            Traverse(Node currNode){
+                if (currNode.left!=null){
+                    new Traverse(currNode.left);
+                }
+                result.add(currNode.value);
+                if (currNode.right!=null)
+                    new Traverse(currNode.right);
+            }
+        }
+        new Traverse(root);
+        return result;
+    }
+
+    public int kthSmallest(int k){
+        Stack<Node> stk = new Stack<>();
+        // Node currNode = root;
+
+        ArrayList<Node> res = new ArrayList<>();
+        class Travers{
+            Travers(Node currNode, int k){
+                while(k!=0 || stk.size()!=0){
+                    if (currNode==null) {
+                        stk.pop();
+                        k--;
+                    }
+                    if (currNode.left!=null)
+                        new Travers(currNode.left,k);
+                    if (currNode.right!=null)
+                        new Travers(currNode.right,k);
+                    stk.push(currNode);
+                }
+                res.add(stk.pop());
+            }
+        }
+        new Travers(root, k);
+        return res.get(0).value;
+
     }
 
 
