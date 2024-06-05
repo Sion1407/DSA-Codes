@@ -2,6 +2,8 @@ package LinkedListPrograms;
 
 
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LinkedList1 {
     private Node head; // Creating vars of class Node
@@ -9,6 +11,7 @@ public class LinkedList1 {
     private int length = 0; // to keep track of size of LL
 
     //        Inner class
+
     class Node {
         int value;
         Node next;
@@ -17,9 +20,10 @@ public class LinkedList1 {
         public Node(int value) {
             this.value = value;
         }
+        public Node(){}
     }
 
-    public LinkedList1(int value) {
+        public LinkedList1(int value) {
 //        Node for declaring var of type node  =  runs/calls the constructor method of Node
 //        newNode -> value
         Node newNode = new Node(value);
@@ -34,6 +38,13 @@ public class LinkedList1 {
             System.out.println("Head: null");
         } else {
             System.out.println("Head: " + head.value);
+        }
+    }
+    public Node getHeadNode() {
+        if (head == null) {
+            return null;
+        } else {
+            return head;
         }
     }
 
@@ -177,5 +188,81 @@ public class LinkedList1 {
         }
 
     }
+
+    public Node removeDuplicates(){
+        Node temp = head;
+        Node tempPrev = null;
+        List<Integer> checkVals = new ArrayList<>();
+
+        while (temp!=null){
+            if (!checkVals.contains(temp.value)){
+                checkVals.add(temp.value);
+                tempPrev = temp;
+                temp = temp.next;
+            }
+            else{
+                Node tempNext = temp.next;
+                tempPrev.next = tempNext;
+                temp.next = null;
+                temp = tempNext;
+            }
+
+        }
+        return head;
+    }
+    public static Node checkIntersection(Node headA, Node headB){
+        Node tempA = headA;
+        Node tempB = headB;
+
+        while (tempB != tempA){
+            if (tempA==null){
+                tempA = headB;
+            }
+            else {
+                tempA = tempA.next;
+            }
+
+            if (tempB == null){
+                tempB = headA;
+            }
+            else {
+                tempB = tempB.next;
+            }
+        }
+        return tempA;
+
+    }
+    public Node partitionList(Node headA, int x){
+        Node left = new Node();
+        Node tempLeft = left;
+        Node right = new Node();
+        Node tempRight = right;
+        Node temp = headA;
+//        while (temp.value!=x){
+//            temp = temp.next;
+//        }
+        while (temp!=null){
+            if (temp.value < x) {
+                    tempLeft.next = temp;
+                    tempLeft = tempLeft.next;
+            }
+            else {
+                    tempRight.next = temp;
+                    tempRight = tempRight.next;
+            }
+            temp = temp.next;
+        }
+        tempLeft.next = right.next;
+        tempRight.next = null;
+//        printing list
+//        Node temmp = left.next;
+//
+//        while (temmp!=null){
+//            System.out.println(temmp.value);
+//            temmp = temmp.next;
+//        }
+        return left.next;
+    }
+
 
 }
