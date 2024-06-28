@@ -80,5 +80,31 @@ public class BinarySearchTree {
         return currNode;
     }
 
+    public Node rDelete(int val){
+        return rDelete(root,val);
+    }
+
+    private Node rDelete(Node currNode,int val){
+        if (currNode==null) return null;
+
+        if (val< currNode.value){
+            currNode.left = rDelete(currNode.left,val);
+        }
+        else if (val> currNode.value){
+            currNode.right = rDelete(currNode.right,val);
+        }
+        else {
+            if (currNode.left==null && currNode.right==null)
+                return null;
+            else if (currNode.left==null) {
+                currNode = currNode.right;
+            }
+            else if (currNode.right==null) {
+                currNode = currNode.left;
+            }
+        }
+
+        return currNode;
+    }
 
 }
