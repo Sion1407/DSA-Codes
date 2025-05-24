@@ -73,24 +73,4 @@ public class LongestPalindromeInAString {
         return palRes;
     }
 
-    //        for (int i=0;i<s.length();i++){
-//            String tempStr = "";
-//            for (int j=i;j<s.length();j++){
-//                 tempStr += s.charAt(j);
-//                if (checkPalindrome(tempStr) && resLen < tempStr.length()){
-//                    resLen = tempStr.length();
-//                    palRes = tempStr;
-//                }
-//            }
-//        }
-//        }
-    static boolean checkPalindrome(String str){
-        String nstr=""; char ch;
-        for (int i=0; i<str.length(); i++)
-        {
-            ch= str.charAt(i);
-            nstr= ch+nstr;
-        }
-        return str.equals(nstr);
-    }
 }

@@ -25,9 +25,13 @@ public class Anagram2Strings {
             else
                 System.out.println(false);
         }
-        System.out.println("Palindrone: "+palindrome(s));
-        System.out.println("fibonacci: " );
-        fib(8);
+//        System.out.println("Palindrone: "+palindrome(s));
+//        System.out.println("fibonacci: " );
+////        fib(8);
+//        for (int i = 0; i < 5; i++) {
+//            System.out.println(fibrec(i));
+//        }
+        reverseNumber(1234);
     }
 
     private static boolean palindrome(String s){
@@ -52,5 +56,24 @@ public class Anagram2Strings {
             s = nxt;
             nxt = sum;
         }
+    }
+
+    private static int fact(int n){
+        if (n==1)
+            return 1;
+        return n * fact(n-1);
+    }
+
+    private static int fibrec(int n){
+        if (n<=1)
+            return n;
+        return fibrec(n-1) +  fibrec(n-2);
+    }
+    private static void reverseNumber(int n){
+        while (n>0) {
+            System.out.print(n%10);
+            n = n/10;
+        }
+//        return n;
     }
 }

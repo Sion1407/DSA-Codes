@@ -4,13 +4,13 @@ package Exercises.dsaProblems;
 
 import java.util.*;
 
-class TreeNode {
+class TreeNode4 {
     int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode() {}
-    TreeNode(int val) { this.val = val; }
-    TreeNode(int val, TreeNode left, TreeNode right) {
+    TreeNode4 left;
+    TreeNode4 right;
+    TreeNode4() {}
+    TreeNode4(int val) { this.val = val; }
+    TreeNode4(int val, TreeNode4 left, TreeNode4 right) {
         this.val = val;
         this.left = left;
         this.right = right;
@@ -23,7 +23,7 @@ class TreeNode {
         } else if (value < this.val) {
             // Insert in the left subtree
             if (this.left == null) {
-                this.left = new TreeNode(value);
+                this.left = new TreeNode4(value);
                 return true;
             } else {
                 return this.left.insert(value);
@@ -31,7 +31,7 @@ class TreeNode {
         } else {
             // Insert in the right subtree
             if (this.right == null) {
-                this.right = new TreeNode(value);
+                this.right = new TreeNode4(value);
                 return true;
             } else {
                 return this.right.insert(value);
@@ -42,24 +42,24 @@ class TreeNode {
 }
 public class TreeLevelOrderTraversal {
     public static void main(String[] args) {
-        TreeNode treeNode = new TreeNode(3);
-        treeNode.insert(9);
-        treeNode.insert(20);
+        TreeNode4 treeNode4 = new TreeNode4(3);
+        treeNode4.insert(9);
+        treeNode4.insert(20);
 //        treeNode.insert(null);
 //        treeNode.insert(null);
-        treeNode.insert(15);
-        treeNode.insert(7);
+        treeNode4.insert(15);
+        treeNode4.insert(7);
 
-        System.out.println(levelOrder(treeNode));
+        System.out.println(levelOrder(treeNode4));
     }
-    public static List<List<Integer>> levelOrder(TreeNode root) {
-        Queue<TreeNode> queue = new LinkedList<>();
+    public static List<List<Integer>> levelOrder(TreeNode4 root) {
+        Queue<TreeNode4> queue = new LinkedList<>();
         queue.add(root);
         List<List<Integer>> res = new ArrayList<>();
         res.add(List.of(root.val));
         List<Integer> temp = new ArrayList<>();
         while (!queue.isEmpty()){
-            TreeNode deq = queue.poll();
+            TreeNode4 deq = queue.poll();
             temp = new ArrayList<>();
             if (deq.left!=null){
                 queue.add(deq.left);

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class Employee{
     String fName;
@@ -86,6 +87,16 @@ public class PracticeQuestionsStream {
                 .stream().filter(e->!d.toLowerCase().equals(e.getDeptName().toLowerCase()))).collect(Collectors.toList()).stream().toList();
         System.out.println(emp1);
 //        Consider a list of employees, sort the employees by their firstName and return the sorted list of employees.
+
+//      Streams are lazy initialization.
+        int[] fact = new int[]{2};
+        List<Integer> ls = List.of(1,2,3);
+
+        Stream stream = ls.stream().map(num -> num * fact[0]);
+        fact[0] = 0;
+        stream.forEach(System.out::println);
+
+
 
     }
 }
