@@ -1,11 +1,18 @@
 package Exercises.dsaProblems;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ZigZagConversion {
     public static void main(String[] args) {
         System.out.println(zigZagConversion("PAYPALISHIRING",3));
     }
     static String zigZagConversion(String s,int row){
+
         String res = "";
+//        System.out.println(res);
+
+
         for (int r = 0;r< row; r++){
 //            for normal scenarios to get next char in the string for first and last element will be 2 * (n-1)
             int inc = 2 * (row-1);
@@ -19,4 +26,37 @@ public class ZigZagConversion {
         }
         return res;
     }
+static List<List<Integer>> res = new ArrayList<>();
+    private TreeNode zig(TreeNode r, List<Integer> t, boolean f){
+        if(r==null) return r;
+        if(!f){
+            if (r.right!=null) {
+                TreeNode right = zig(r.right, t, f);
+                t.add(right.val);
+            }
+            if (r.left!=null) {
+                TreeNode left = zig(r.left, t, f);
+                t.add(left.val);
+            }
+            res.add(t);
+            t.removeAll(t);
+            f = true;
+        }
+        else{
+            if (r.left!=null) {
+                TreeNode left = zig(r.left, t, f);
+                t.add(left.val);
+            }
+            if (r.right!=null) {
+                TreeNode right = zig(r.right, t, f);
+                t.add(right.val);
+            }
+            res.add(t);
+            t.removeAll(t);
+            f = false;
+        }
+
+        return r;
+    }
+
 }

@@ -2,7 +2,7 @@ package Exercises.dsaProblems;
 
 public class JumpGame2 {
     public static void main(String[] args) {
-        System.out.println(jump(new int[]{2,3,1,1,4}));
+        System.out.println(jump(new int[]{2,3,4,1,4,5}));
     }
 
     public static int jump(int[] nums) {
@@ -19,6 +19,10 @@ public class JumpGame2 {
                 current = farthest;
             }
         }
+
+        int n1 = 2;
+        String s = Integer.toBinaryString(n1);
+        System.out.println(s);
         return jumps;
     }
 }

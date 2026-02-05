@@ -37,11 +37,11 @@ class MyThread1 extends Thread{
 }
 class MyThread2 extends Thread{
     @Override
-       public void run(){
+    public void run(){
         int i = 0;
         while (i<4000){
             System.out.println("Thread2 is running");
             i++;
         }
-       }
+    }
 }

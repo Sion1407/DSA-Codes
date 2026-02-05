@@ -31,6 +31,8 @@ public class ExecutorServiceExample {
         for (int i = 0; i < 10; i++) {
             int temp = i;
             executorService.submit(() -> System.out.println("task" + (temp+1) + " running"));
+//            executorService.submit(new PrintThread(i));
+
         }
         executorService.shutdown();
 

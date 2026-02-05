@@ -1,6 +1,7 @@
 package Exercises.dsaProblems;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class MergeIntervals {
     public static void main(String[] args) {
@@ -15,7 +16,7 @@ public class MergeIntervals {
 
     public static int[][] merge(int[][] intervals) {
         int[][] merged = new int[intervals.length][2];
-        Arrays.sort(intervals, (a,b)-> Integer.compare(a[0],b[0]));
+        Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
         int m = 0;
         merged[m][0] = intervals[0][0];
         merged[m][1] = intervals[0][1];

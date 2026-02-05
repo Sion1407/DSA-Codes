@@ -7,9 +7,9 @@ public class MonotonicStackInc {
     public static int[] monotonicIncreasing(int[] nums) {
         Deque<Integer> stack = new ArrayDeque<>();
 
-            // Traverse the array
-            for (int num : nums) {
-                // While stack is not empty AND top of stack is more than the current element
+        // Traverse the array
+        for (int num : nums) {
+            // While stack is not empty AND top of stack is more than the current element
             while (!stack.isEmpty() && stack.peekLast() > num) {
                 // Pop the top element from the stack
                 stack.pollLast();

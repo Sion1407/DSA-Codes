@@ -1,7 +1,6 @@
 package LinkedListPrograms;
 
 
-import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +19,12 @@ public class LinkedList1 {
         public Node(int value) {
             this.value = value;
         }
-        public Node(){}
+
+        public Node() {
+        }
     }
 
-        public LinkedList1(int value) {
+    public LinkedList1(int value) {
 //        Node for declaring var of type node  =  runs/calls the constructor method of Node
 //        newNode -> value
         Node newNode = new Node(value);
@@ -40,6 +41,7 @@ public class LinkedList1 {
             System.out.println("Head: " + head.value);
         }
     }
+
     public Node getHeadNode() {
         if (head == null) {
             return null;
@@ -62,8 +64,7 @@ public class LinkedList1 {
         if (length == 0) {
             head = newNode;
             tail = newNode;
-        }
-        else {
+        } else {
             tail.next = newNode;
             tail = newNode;
         }
@@ -75,7 +76,7 @@ public class LinkedList1 {
         if (length == 0) return null;
         Node temp = head;
         Node pre = head;
-        while(temp.next != null) {
+        while (temp.next != null) {
             pre = temp;
             temp = temp.next;
         }
@@ -91,7 +92,7 @@ public class LinkedList1 {
 
     public void prepend(int value) {
         Node newNode = new Node(value);
-        if (length==0){
+        if (length == 0) {
             head = newNode;
             tail = newNode;
         }
@@ -100,32 +101,32 @@ public class LinkedList1 {
         length++;
     }
 
-    public Node removeFirst(){
-        if (length==0)
+    public Node removeFirst() {
+        if (length == 0)
             return null;
         Node temp = head;
         head = head.next;
         temp.next = null;
         length--;
-        if (length==0)
+        if (length == 0)
 //            in case of single element in the ll we need the tail would be still pointing to head
             tail = null;
         return head;
     }
 
-    public Node getIndex(int index){
-        if (length==0) return null;
+    public Node getIndex(int index) {
+        if (length == 0) return null;
         int count = 0;
         Node temp = head;
-        if (index>length || index<0) return null;
-        while (count!=index){
+        if (index > length || index < 0) return null;
+        while (count != index) {
             temp = temp.next;
             count++;
         }
         return temp;
     }
 
-    public boolean set(int index, int value){
+    public boolean set(int index, int value) {
 //        if (index>length || index < 0) return false;
 //        Node temp = head;
 //        int count = 0;
@@ -134,23 +135,23 @@ public class LinkedList1 {
 //            count++;
 //        }
         Node temp = getIndex(index);
-        if (temp!=null){
+        if (temp != null) {
             temp.value = value;
             return true;
         }
         return false;
     }
 
-    public boolean insert(int index, int val){
-        if (index==0){
+    public boolean insert(int index, int val) {
+        if (index == 0) {
             prepend(val);
             return true;
-        } else if (index==length) {
+        } else if (index == length) {
             append(val);
             return true;
         }
         Node newNode = new Node(val);
-        Node temp = getIndex(index-1);
+        Node temp = getIndex(index - 1);
         Node tempNext = temp.next;
         if (temp != null) {
             temp.next = newNode;
@@ -161,10 +162,10 @@ public class LinkedList1 {
         return false;
     }
 
-    public Node remove(int index){
+    public Node remove(int index) {
         if (index == 0) return removeFirst();
-        if (index == length-1) return removeLast();
-        Node prev = getIndex(index-1);
+        if (index == length - 1) return removeLast();
+        Node prev = getIndex(index - 1);
         Node temp = prev.next;
         prev.next = temp.next;
         temp.next = null;
@@ -172,14 +173,14 @@ public class LinkedList1 {
         return temp;
     }
 
-    public void reverse(){
+    public void reverse() {
         Node temp = head;
         head = tail;
         tail = head;
         Node prev = null;
         Node after;
         int count = 0;
-        while (count<length){
+        while (count < length) {
             after = temp.next;
             temp.next = prev;
             prev = temp;
@@ -189,18 +190,17 @@ public class LinkedList1 {
 
     }
 
-    public Node removeDuplicates(){
+    public Node removeDuplicates() {
         Node temp = head;
         Node tempPrev = null;
         List<Integer> checkVals = new ArrayList<>();
 
-        while (temp!=null){
-            if (!checkVals.contains(temp.value)){
+        while (temp != null) {
+            if (!checkVals.contains(temp.value)) {
                 checkVals.add(temp.value);
                 tempPrev = temp;
                 temp = temp.next;
-            }
-            else{
+            } else {
                 Node tempNext = temp.next;
                 tempPrev.next = tempNext;
                 temp.next = null;
@@ -210,29 +210,29 @@ public class LinkedList1 {
         }
         return head;
     }
-    public static Node checkIntersection(Node headA, Node headB){
+
+    public static Node checkIntersection(Node headA, Node headB) {
         Node tempA = headA;
         Node tempB = headB;
 
-        while (tempB != tempA){
-            if (tempA==null){
+        while (tempB != tempA) {
+            if (tempA == null) {
                 tempA = headB;
-            }
-            else {
+            } else {
                 tempA = tempA.next;
             }
 
-            if (tempB == null){
+            if (tempB == null) {
                 tempB = headA;
-            }
-            else {
+            } else {
                 tempB = tempB.next;
             }
         }
         return tempA;
 
     }
-    public Node partitionList(Node headA, int x){
+
+    public Node partitionList(Node headA, int x) {
         Node left = new Node();
         Node tempLeft = left;
         Node right = new Node();
@@ -241,14 +241,13 @@ public class LinkedList1 {
 //        while (temp.value!=x){
 //            temp = temp.next;
 //        }
-        while (temp!=null){
+        while (temp != null) {
             if (temp.value < x) {
-                    tempLeft.next = temp;
-                    tempLeft = tempLeft.next;
-            }
-            else {
-                    tempRight.next = temp;
-                    tempRight = tempRight.next;
+                tempLeft.next = temp;
+                tempLeft = tempLeft.next;
+            } else {
+                tempRight.next = temp;
+                tempRight = tempRight.next;
             }
             temp = temp.next;
         }
@@ -263,6 +262,35 @@ public class LinkedList1 {
 //        }
         return left.next;
     }
+//    1 -> 2 -> 3 -> 4 -> 5
 
+    public Node codingNinjasLL(Node headA) {
+        int n = 0;
+        Node temp = headA;
+        while (temp != null) {
+            temp = temp.next;
+
+            n++;
+        }
+        n = n / 2;
+        int i = 0;
+        temp = headA;
+        Node nxt = temp.next;
+        while (i < n) {
+            Node prevLast = null;
+            Node last = headA;
+            while (last.next!=null){
+                prevLast = last;
+                last = last.next;
+            }
+            prevLast.next = null;
+            temp.next = last;
+            last.next = nxt;
+            temp = nxt;
+            nxt = nxt.next;
+            i++;
+        }
+        return headA;
+    }
 
 }

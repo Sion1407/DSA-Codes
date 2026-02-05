@@ -16,6 +16,8 @@ public class Anagram2Strings {
             s2.toLowerCase();
             char[] c1 = s.toCharArray();
             char[] c2 = s2.toCharArray();
+//            Arrays.sort(c1);Arrays.sort(c2);
+//            System.out.println(Arrays.equals(c1, c2));
             for (int i = 0; i < c1.length; i++) {
                 cnt.put(c1[i],cnt.getOrDefault(c1[i],0)+1);
                 cnt1.put(c2[i],cnt1.getOrDefault(c2[i],0)+1);
@@ -25,6 +27,8 @@ public class Anagram2Strings {
             else
                 System.out.println(false);
         }
+
+//        ValidationChain
         System.out.println("Palindrone: "+palindrome(s));
         System.out.println("fibonacci: " );
         fib(8);

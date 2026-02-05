@@ -19,20 +19,18 @@ package Exercises.dsaProblems;
 //        Output: "bb"
 
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-
 public class LongestPalindromeInAString {
     public static void main(String[] args) {
         System.out.println(longestPalindrome("babad"));
     }
 
     static String longestPalindrome(String s) {
+//        Hashtable<Integer,Integer> ht = new Hashtable<>();
         int resLen = 0;
         String palRes = "";
-
+//        List<Integer> t = new ArrayList<>(Arrays.asList(1,2,3));
+//        t.remove(2);
+//        System.out.println(t);
         for (int i=1; i<s.length();i++){
             int left = i;
             int right = i;
