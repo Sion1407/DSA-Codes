@@ -2,6 +2,7 @@ package Exercises.dsaProblems;
 
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 class DL{
@@ -28,6 +29,26 @@ class Employee{
     String deptName;
     int empId;
     String gender;
+    List<String> skill;
+
+    public List<String> getSkill() {
+        return skill;
+    }
+
+    public void setSkill(List<String> skill) {
+        this.skill = skill;
+    }
+
+
+    Employee(String fName, String deptName){
+        this.fName = fName; this.deptName = deptName;
+    }
+    Employee(String fName, String deptName,double salary){
+        this.fName = fName; this.deptName = deptName;this.salary = salary;
+    }
+    Employee(String fName, List<String> skill){
+        this.fName = fName; this.skill= skill;
+    }
 
     public Double getSalary() {
         return salary;
@@ -98,6 +119,25 @@ class Employee{
                 '}';
     }
 }
+
+class Order {
+    private String status;
+    private double amount;
+
+    public Order(String status, double amount) {
+        this.status = status;
+        this.amount = amount;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+}
+
 
 public class PracticeQuestionsStream {
     public static void main(String[] args) {
@@ -305,6 +345,103 @@ public class PracticeQuestionsStream {
         Optional<Character> c1 = nrs.chars().mapToObj(ch-> (char) ch).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()))
                 .entrySet().stream().filter(hms -> hms.getValue()==1).map(vals -> vals.getKey()).findFirst();
         System.out.println(c1.get());
+
+        Map<String, List<String>> users = new HashMap<>();
+        List<String> strings = Arrays.asList();
+        int[] a1 = new int[]{1,2,3,4};
+        int[] a2 = Arrays.stream(a1).mapToObj(toStr -> String.valueOf(toStr))
+                .filter(f -> f.startsWith("1"))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+        System.out.println(Arrays.toString(a2));
+
+//        Map<String, Double> highestSalary = employees.stream().max(Comparator.comparingDouble(Employee::getSalary))
+//                .map(emps -> Map.of(emps.fName,emps.salary)).orElse(Collections.emptyMap());
+//        Map<String, Double> highestSalary = employees.stream().sorted(Collections.reverseOrder())
+//                .collect(Collectors.toMap(Employee::getfName,Employee::getSalary, (fn,sal) -> fn, LinkedHashMap::new));
+
+//        System.out.println(highestSalary);
+
+        List<Employee> e2 = List.of(
+                new Employee("Amit", "IT"),
+                new Employee("Neha", "HR"),
+                new Employee("Rohit", "IT"),
+                new Employee("Pooja", "Finance"),
+                new Employee("Karan", "HR")
+        );
+
+        Map<String, List<String>> deptGroup = e2.stream().collect(Collectors.groupingBy(Employee::getDeptName,
+                Collectors.mapping(Employee::getfName,Collectors.toList())));
+        System.out.println("Group by dept name : "+deptGroup);
+
+        List<Order> orders = List.of(
+                new Order("SUCCESS", 100),
+                new Order("FAILED", 50),
+                new Order("SUCCESS", 200),
+                new Order("FAILED", 75),
+                new Order("PENDING", 20)
+        );
+        Map<String, Long> cntOfStatus = orders.stream().collect(Collectors.groupingBy(Order::getStatus,Collectors.counting()));
+        System.out.println("status cnt : "+cntOfStatus);
+
+
+        Double sndHighestSal = employees.stream().map(Employee::getSalary)
+                .sorted(Collections.reverseOrder()).skip(1).findFirst().get();
+        System.out.println("sndHighestSal: "+sndHighestSal );
+
+        List<List<Integer>> numbers = List.of(
+                List.of(1, 2, 3),
+                List.of(3, 4),
+                List.of(5, 6, 1)
+        );
+
+        List<Integer> flatten = numbers.stream().flatMap(s1->s1.stream()).toList();
+        System.out.println("flatten: "+flatten);
+
+        List<Employee> sortedSkill = List.of(
+                new Employee("Amit", List.of("Java", "Spring")),
+                new Employee("Neha", List.of("HRMS", "Communication")),
+                new Employee("Rohit", List.of("Spring", "Docker")),
+                new Employee("Pooja", List.of("Docker", "Java"))
+        );
+
+        List<String> ss = sortedSkill.stream().flatMap(skill -> skill.getSkill().stream()).sorted().toList();
+        System.out.println("SortedSkills: "+ss);
+
+        List<Integer> oddEven = List.of(1, 2, 3, 4, 5, 6, 7);
+        Map<Boolean,List<Integer>> hmOddEve = oddEven.stream().collect(Collectors.partitioningBy(n->n%2==0));
+        System.out.println("OddEven : "+hmOddEve);
+
+        List<Employee> abvAvgSal = List.of(
+                new Employee("Amit", "IT", 100000),
+                new Employee("Rohit", "IT", 150000),
+                new Employee("Neha", "HR", 80000),
+                new Employee("Pooja", "HR", 120000)
+        );
+        Map<String, Double> avgSalDeptVise = abvAvgSal.stream().collect(Collectors.groupingBy(Employee::getDeptName,Collectors.averagingDouble(Employee::getSalary)));
+        List<String> abvAvgSalDept = abvAvgSal.stream()
+                .filter(empWIthAvg -> empWIthAvg.getSalary() > avgSalDeptVise.get(empWIthAvg.getDeptName()))
+                .map(Employee::getfName)
+                .toList();
+        System.out.println("Avg sal abve avg dept wise: "+ abvAvgSalDept);
+
+        String freqRepChars = "aabbssssd";
+        Map<Character,Long> freqMap = freqRepChars.chars().mapToObj(chr-> (char) chr)
+                .collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
+        System.out.println("Frequency : "+freqMap);
+
+
+        Map<String, List<Employee>> deptWEmp = emp2.stream().collect(Collectors.groupingBy(Employee::getDeptName));
+        System.out.println("dept wise emp name"+deptWEmp);
+
+        Map<String, Employee> highsalDept = employees.stream()
+                .collect(Collectors.toMap(Employee::getDeptName, Function.identity(),
+                        BinaryOperator.maxBy(Comparator.comparing(Employee::getSalary))));
+        System.out.println(highsalDept);
+
+        String cntOfChars = "insurance";
+        Map<Character,Long> cntOfchrs = cntOfChars.chars().mapToObj(tochr->(char) tochr).collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
+        System.out.println("Cnt of Chrs" + cntOfchrs);
     }
 }
 

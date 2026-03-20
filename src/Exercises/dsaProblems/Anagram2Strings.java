@@ -34,7 +34,7 @@ public class Anagram2Strings {
         fib(8);
     }
 
-    private static boolean palindrome(String s){
+    private static boolean palindrome(String s)  {
         String t = s;
         char [] c1 = s.toCharArray();
         for (int i = 0; i < c1.length/2; i++) {

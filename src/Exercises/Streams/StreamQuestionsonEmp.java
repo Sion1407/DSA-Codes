@@ -34,5 +34,10 @@ public class StreamQuestionsonEmp {
 
         Map<Integer,Long> hm = List.of(1,5,-50,500,3,4,532,500).stream().collect(Collectors.groupingBy(Function.identity(),Collectors.counting()));
         System.out.println(hm);
+
+        List<Integer> remOddAndSum = Arrays.asList(1,2,3,4,5,6);
+        int sumOfEvens = remOddAndSum.stream().filter(odd -> odd%2==0).map(e-> e*2).mapToInt(i->i).sum();
+        System.out.println(sumOfEvens);
+
     }
 }
